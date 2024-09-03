@@ -1,1 +1,58 @@
-My backend operations will be in the `server` folder.
+Backend structure for MyJournal.
+
+Database:
+Name: `myjournal`
+type: `SQLite`
+Tables: Models
+
+
+Models:
+- `users`
+- `entries`
+- `user preferences`
+- `reminders`
+- `tags`
+- `entry tags`
+- `categories`
+- `media files`
+
+Relationships:
+- `users` 
+    * creates many `entries`
+    * has many `user preferences`
+    * sets many `reminders`
+
+-`entries`
+    * contains many `media files`
+    * belongs to `categories`
+    * has many `tags`
+    * contains many `entry tags`
+
+- `user preferences`
+    * belongs to `users`
+
+- `reminders`
+    * belongs to `users`
+
+- `tags`
+    * has many `entry tags`
+
+- `entry tags`
+    * belongs to `entries`
+
+- `categories`
+    * has many `entries`
+
+- `media files`
+    * belongs to `entries`
+
+
+Routes:
+- `users`
+- `entries`
+- `user preferences`
+- `reminders`
+- `tags`
+- `entry tags`
+- `categories`
+- `media files`
