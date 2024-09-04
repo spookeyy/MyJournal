@@ -56,3 +56,10 @@ Routes:
 - `entry tags`
 - `categories`
 - `media files`
+
+
+{
+    "server_url": "http://localhost:5000",
+    "jwt_secret": "secret",
+    "jwt_expiration": 3600
+}
