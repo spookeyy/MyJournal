@@ -86,6 +86,8 @@ export const AuthProvider = ({ children }) => {
     });
     setCookie("token", "", { path: "/" });
     setCookie("user", "", { path: "/" });
+    removeCookie("token");
+    removeCookie("user");
     setCurrentUser(null);
     ToastAndroid.show("Logged out successfully", ToastAndroid.SHORT);
   };
