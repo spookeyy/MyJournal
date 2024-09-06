@@ -63,3 +63,8 @@ Routes:
     "jwt_secret": "secret",
     "jwt_expiration": 3600
 }
+
+COOKIE BASED AUTH:
+    "universal-cookie": "^7.2.0"
+        "react-cookie": "^7.2.0"
+        "jwt-decode": "^3.1.2"
