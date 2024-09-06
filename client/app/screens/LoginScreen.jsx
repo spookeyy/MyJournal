@@ -1,28 +1,35 @@
-import React, { useState, useContext } from "react";
-import { StyleSheet, View, Text, TextInput, Button } from "react-native";
-import { AuthContext } from "../context/AuthContext";
+import React, { useState } from "react";
+import { StyleSheet, View, TextInput, Button, Text, Alert } from "react-native";
+import { useAuth } from "../context/AuthContext";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useContext(AuthContext);
+  const { login } = useAuth();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     try {
-      login(email, password);
-      navigation.navigate("Home");
+      await login(email, password);
+      console.log("Login successful");
+      // navigation.navigate("Home");
     } catch (error) {
-      console.log(error);
+      console.log("Login failed:", error);
+      Alert.alert(
+        "Login Failed",
+        "Please check your credentials and try again."
+      );
     }
   };
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Welcome to MyJournal</Text>
+      <Text style={styles.subtitle}>Login to your account</Text>
       <TextInput
         style={styles.input}
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
       />
       <TextInput
         style={styles.input}
@@ -43,10 +50,24 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   input: {
-    height: 40,
+    height: 30,
     borderColor: "gray",
     borderWidth: 1,
+    borderRadius: 5,
     marginBottom: 10,
-    paddingHorizontal: 10,
+    paddingHorizontal: 70,
+    backgroundColor: "#fff",
+    fontSize: 16,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 20,
+  },
+  subtitle: {
+    fontSize: 18,
+    textAlign: "center",
+    marginBottom: 20,
   },
 });
