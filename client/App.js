@@ -1,26 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { AuthProvider } from './app/context/AuthContext';
-import { StyleSheet, Text, View } from 'react-native';
-import LoginScreen from './app/screens/LoginScreen';
+import React from "react";
+import "./global.css";
+import { AuthProvider } from "./app/context/AuthContext";
+import AppNavigator from "./app/navigations/AppNavigator";
 
-export default function App() {
+const App = () => {
   return (
     <AuthProvider>
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <LoginScreen />
-      <StatusBar style="auto" />
-    </View>
+      <AppNavigator />
     </AuthProvider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
