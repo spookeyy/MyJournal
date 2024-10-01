@@ -6,7 +6,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "../screens/HomeScreen";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
-// import EntryListScreen from "../screens/EntryListScreen";
+import EntryListScreen from "../screens/EntryListScreen";
 // import EntryDetailScreen from "../screens/EntryDetailScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import { useAuth } from "../context/AuthContext";
@@ -35,9 +35,6 @@ const JournalStack = () => (
   </Stack.Navigator>
 );
 
-const EntryListScreen = () => {
-  return <Text>EntryListScreen</Text>;
-};
 
 const EntryDetailScreen = () => {
   return <Text>EntryDetailScreen</Text>;
