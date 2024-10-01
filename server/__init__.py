@@ -22,14 +22,14 @@ def create_app(config_class=Config):
     bcrypt.init_app(app)
     jwt.init_app(app)
 
-# entries, categories, tags, media, reminders, user_preferences
-    from server.routes import auth
+    from server.routes import auth, entries, categories, tags, media, reminders, user_preferences
+
     app.register_blueprint(auth.auth_bp)
-    # app.register_blueprint(entries.auth_bp)
-    # app.register_blueprint(categories.auth_bp)
-    # app.register_blueprint(tags.auth_bp)
-    # app.register_blueprint(media.auth_bp)
-    # app.register_blueprint(reminders.auth_bp)
-    # app.register_blueprint(user_preferences.auth_bp)
+    app.register_blueprint(entries.bp)
+    app.register_blueprint(categories.bp)
+    app.register_blueprint(tags.bp)
+    app.register_blueprint(media.bp)
+    app.register_blueprint(reminders.bp)
+    app.register_blueprint(user_preferences.bp)
 
     return app
