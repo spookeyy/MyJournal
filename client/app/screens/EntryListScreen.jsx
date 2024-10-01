@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { View, FlatList, Text, TouchableOpacity } from "react-native";
 import { useAuth } from "../context/AuthContext";
-import EntryListItem from "../components/EntryListItem";
+// import EntryListItem from "../components/EntryListItem";
 import { useNavigation } from "@react-navigation/native";
-import { useToast } from "react-native-toast-notifications";
+// import { useToast } from "react-native-toast-notifications";
 import {fetchEntries} from "../services/entryService";
 
 const EntryListScreen = ({ navigation }) => {
