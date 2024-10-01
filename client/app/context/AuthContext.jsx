@@ -1,23 +1,30 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { server_url } from "../../config.json";
-import { ToastAndroid } from "react-native-toast-message";
-import { Platform, Alert } from "react-native";
+import { ToastAndroid, Platform, Alert } from "react-native";
+import { initWebSocket, closeWebSocket } from "../services/websocket";
 
 export const AuthContext = createContext();
 
 const showMessage = (message) => {
   if (Platform.OS === "android") {
-    // ToastAndroid.show(message, ToastAndroid.SHORT);
-    Alert.alert("Message", message);
+    ToastAndroid.show(message, ToastAndroid.SHORT);
   } else {
     Alert.alert("Message", message);
   }
 };
 
-
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
+
+  useEffect(() => {
+    if (accessToken) {
+      initWebSocket(accessToken);
+    }
+    return () => {
+      closeWebSocket();
+    };
+  }, [accessToken]);
 
   useEffect(() => {
     const getCurrentUser = async () => {
@@ -38,7 +45,7 @@ export const AuthProvider = ({ children }) => {
           setCurrentUser(data.user);
         } catch (error) {
           console.error("Error verifying user:", error);
-          showMessage("Error verifying user");
+          showMessage(data.error);
         }
       }
     };
@@ -63,7 +70,8 @@ export const AuthProvider = ({ children }) => {
         showMessage(data.error);
         return;
       }
-      showMessage("Registered successfully");
+      showMessage(data.message);
+      return data;
     } catch (error) {
       console.error("Error registering:", error);
       showMessage("Error registering");
@@ -90,8 +98,9 @@ export const AuthProvider = ({ children }) => {
         return;
       }
       setCurrentUser(data.user);
-      setAccessToken(data.token);
-      showMessage("Logged in successfully");
+      console.log(data);
+      setAccessToken(data.access_token);
+      showMessage(data.message);
     } catch (error) {
       console.error("Error logging in:", error);
       showMessage("Error logging in");
@@ -110,10 +119,31 @@ export const AuthProvider = ({ children }) => {
       });
       setCurrentUser(null);
       setAccessToken(null);
-      showMessage("Logged out successfully");
+      showMessage(data.message);
     } catch (error) {
       console.error("Error logging out:", error);
       showMessage("Error logging out");
+    }
+  };
+
+  const getProfile = async () => {
+    try {
+      const response = await fetch(`${server_url}/profile`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      const data = await response.json();
+      if (data.error) {
+        showMessage(data.error);
+        return;
+      }
+      setCurrentUser(data.user);
+    } catch (error) {
+      console.error("Error getting profile:", error);
+      showMessage("Error getting profile");
     }
   };
 
@@ -123,6 +153,7 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     register,
+    getProfile,
   };
 
   return (
@@ -130,7 +161,8 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-export const useAuth = () => { // useAuth hook
+export const useAuth = () => {
+  // useAuth hook
   const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error("useAuth must be used within an AuthProvider");
