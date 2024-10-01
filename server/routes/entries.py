@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from server.models.entry import Entry
-from app import db
+from server.app import db
 
 bp = Blueprint('entries', __name__)
 
