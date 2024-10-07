@@ -16,8 +16,8 @@ const Stack = createStackNavigator();
 
 const AuthStack = () => (
   <Stack.Navigator>
-    <Stack.Screen name="Register" component={RegisterScreen} />
     <Stack.Screen name="Login" component={LoginScreen} />
+    <Stack.Screen name="Register" component={RegisterScreen} />
     <Stack.Screen name="Profile" component={ProfileScreen} />
   </Stack.Navigator>
 );
