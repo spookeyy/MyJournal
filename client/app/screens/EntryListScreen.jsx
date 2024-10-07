@@ -9,7 +9,8 @@ import {fetchEntries} from "../services/entryService";
 const EntryListScreen = ({ navigation }) => {
     const [entries, setEntries] = useState([]);
     const { accessToken } = useAuth();
-    const toast = useToast();
+    // console.log( " accessToken",accessToken);
+    // const toast = useToast();
 
     useEffect (() => {
         const getEntries = async () => {

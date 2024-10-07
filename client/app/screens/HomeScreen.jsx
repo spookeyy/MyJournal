@@ -11,7 +11,7 @@ import ProfileScreen from "./ProfileScreen";
 export default function HomeScreen() {
     const { user } = useAuth();
     const navigation = useNavigation();
-    const toast = useToast();
+    // const toast = useToast();
 
     return (
         <View className="flex-1 justify-center p-5">
