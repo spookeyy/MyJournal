@@ -10,6 +10,7 @@ bcrypt-flask = "*"
 flask-jwt-extended = "*"
 flask-migrate = "*"
 flask-cors = "*"
+flask-socketio = "*"
 
 [dev-packages]
 
