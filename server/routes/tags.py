@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from server.models.tag import Tag
-from app import db
+from server import db
 
 bp = Blueprint('tags', __name__)
 
