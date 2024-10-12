@@ -22,6 +22,9 @@ def after_request(response):
 
 @auth_bp.route('/auth/register', methods=['POST'])
 def register():
+    if User.query.filter_by(email=request.json['email']).first():
+        return jsonify({'message': 'User already exists'}), 409
+    
     data = request.get_json()
     username = User(
         username=data['username'],

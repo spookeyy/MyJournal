@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from server.models.reminder import Reminder
-from app import db
+from server import db
 from datetime import datetime
 
 bp = Blueprint('reminders', __name__)

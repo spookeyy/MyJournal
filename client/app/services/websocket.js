@@ -1,38 +1,40 @@
 import { server_url } from "../../config.json";
+import io from "socket.io-client";
 
 let socket;
 
 export const initWebSocket = (accessToken) => {
-  socket = new WebSocket(`ws://${server_url.replace(/^http:\/\//, "")}/ws`);
+  socket = io(`http://${server_url.replace(/^http:\/\//, "")}`);
 
-  socket.onopen = () => {
+  socket.on("connect", () => {
     console.log("WebSocket connection established");
-    socket.send(JSON.stringify({ type: "auth", token: accessToken }));
-  };
+    socket.emit("auth", { token: accessToken });
+  });
 
-  socket.onmessage = (event) => {
-    const data = JSON.parse(event.data);
+  socket.on("message", (data) => {
     console.log("Received message:", data);
-
     // Handle messages here
+  });
 
-    // Example:
-    // if (data.type === "message") {
-    //   handleMessage(data);
-    // }
-  };
+  socket.on("connect_error", (error) => {
+    console.error("WebSocket connection error:", error);
+  });
 
-  socket.onerror = (error) => {
-    console.error("WebSocket error:", error);
-  };
-
-  socket.onclose = () => {
+  socket.on("disconnect", () => {
     console.log("WebSocket connection closed");
-  };
+  });
 };
 
 export const closeWebSocket = () => {
   if (socket) {
-    socket.close();
+    socket.disconnect();
+  }
+};
+
+export const sendMessage = (message) => {
+  if (socket && socket.connected) {
+    socket.emit("message", message);
+  } else {
+    console.error("WebSocket is not connected");
   }
 };

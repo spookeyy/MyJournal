@@ -1,3 +1,5 @@
+flask run --host=0.0.0.0
+
 Backend structure for MyJournal.
 
 Database:
@@ -68,3 +70,4 @@ COOKIE BASED AUTH:
     "universal-cookie": "^7.2.0"
         "react-cookie": "^7.2.0"
         "jwt-decode": "^3.1.2"
+

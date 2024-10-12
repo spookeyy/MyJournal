@@ -32,4 +32,9 @@ def create_app(config_class=Config):
     app.register_blueprint(reminders.bp)
     app.register_blueprint(user_preferences.bp)
 
+    from server.models import category, entry, media_file, reminder, tag, user, user_preference
+
+    with app.app_context():
+        db.create_all()
+
     return app
