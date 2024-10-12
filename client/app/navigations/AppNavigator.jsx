@@ -7,7 +7,6 @@ import HomeScreen from "../screens/HomeScreen";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import EntryListScreen from "../screens/EntryListScreen";
-// import EntryDetailScreen from "../screens/EntryDetailScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import { useAuth } from "../context/AuthContext";
 
@@ -18,15 +17,15 @@ const AuthStack = () => (
   <Stack.Navigator>
     <Stack.Screen name="Login" component={LoginScreen} />
     <Stack.Screen name="Register" component={RegisterScreen} />
-    <Stack.Screen name="Profile" component={ProfileScreen} />
   </Stack.Navigator>
 );
 
-const HomeStack = () => {
+const HomeStack = () => (
   <Stack.Navigator>
     <Stack.Screen name="Home" component={HomeScreen} />
-  </Stack.Navigator>;
-}
+    <Stack.Screen name="Profile" component={ProfileScreen} />
+  </Stack.Navigator>
+);
 
 const JournalStack = () => (
   <Stack.Navigator>
@@ -34,7 +33,6 @@ const JournalStack = () => (
     <Stack.Screen name="EntryDetail" component={EntryDetailScreen} />
   </Stack.Navigator>
 );
-
 
 const EntryDetailScreen = () => {
   return <Text>EntryDetailScreen</Text>;
@@ -47,9 +45,21 @@ const AppNavigator = () => {
     <NavigationContainer>
       {currentUser ? (
         <Tab.Navigator>
-          <Tab.Screen name="Home" component={HomeStack} />
-          <Tab.Screen name="Journal" component={JournalStack} />
-          <Tab.Screen name="Profile" component={ProfileScreen} />
+          <Tab.Screen
+            name="HomeTab"
+            component={HomeStack}
+            options={{ title: "Hom" }}
+          />
+          <Tab.Screen
+            name="JournalTab"
+            component={JournalStack}
+            options={{ title: "Journal" }}
+          />
+          <Tab.Screen
+            name="ProfileTab"
+            component={ProfileScreen}
+            options={{ title: "Profile" }}
+          />
         </Tab.Navigator>
       ) : (
         <AuthStack />
