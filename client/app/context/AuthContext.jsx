@@ -110,13 +110,15 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await fetch(`${server_url}/auth/logout`, {
+      const response = await fetch(`${server_url}/auth/logout`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
       });
+
+      const data = await response.json();
       setCurrentUser(null);
       setAccessToken(null);
       showMessage(data.message);
